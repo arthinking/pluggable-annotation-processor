@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.itzhai</groupId>
+	<artifactId>annotation-process</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>annotation-process</name>
+	<description>annotation-process</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
+	</dependencies>
+
+	<build>
+		<plugins>
+            <!-- http://maven.apache.org/plugins/maven-compiler-plugin/compile-mojo.html -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+                    <!-- 设置为true以打印有关编译器相关的日志 -->
+					<verbose>true</verbose>
+                    <!-- 允许在单独的进程中运行编译器。如果为false，则使用内置编译器；如果为true，则使用可执行文件。
+                    要使compilerVersion标签生效，需要将fork设为true，用于明确表示编译版本配置可用
+                    -->
+					<fork>true</fork>
+                    <!-- 指定插件将使用的编译器的版本 -->
+					<compilerVersion>1.8</compilerVersion>
+                    <!-- 源代码使用的JDK版本 -->
+					<source>1.8</source>
+                    <!--<executable>${JAVA_HOME}/bin/javac</executable>-->
+                    <!-- 需要生成的目标class文件的编译版本 -->
+					<target>1.8</target>
+                    <!-- 需要生成的目标class文件的编译版本 -->
+					<encoding>utf-8</encoding>
+					<!--
+					https://stackoverflow.com/questions/38926255/maven-annotation-processing-processor-not-found
+					默认的,编译器会找到Processor配置,并且执行注解处理器,但此时注解处理器还没编译好,所以会报错,为了避免这种错误,需要做一下参数配置:
+					-->
+					<proc>none</proc>
+                    <!-- 这个选项用来传递编译器自身不包含但是却支持的参数选项 -->
+					<compilerArguments>
+                        <!--自定义注解处理器使用到了 com.sun.tools 包中的类,所以这里要确保引用 tools.jar-->
+						<classpath>${JAVA_HOME}/lib/tools.jar</classpath>
+					</compilerArguments>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
